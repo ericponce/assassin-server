@@ -42,3 +42,22 @@ def remove_user(email, database):
 		print "Deleted user " + email + "."
 	conn.commit()
 	conn.close()
+
+def get_user_status(email, database):
+	conn = sqlite3.connect(database)
+
+	c = conn.cursor()
+
+	c.execute('''select * from users where email=?''',(email,))
+	res = c.fetchone()
+	if (res == None):
+		print "User not found."
+		return None
+	else:
+		return res[2]
+
+
+
+
+
+
