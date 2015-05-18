@@ -12,3 +12,23 @@ if __name__ == "__main__":
 	f.close()
 
 	database.init_table(dbase);
+
+	while(1):
+		num, sender, body = email_util.receive_email_subj("add", username, password)
+		if (num != -1):
+			print "Received new user email requesting add!"
+			sender = sender[sender.index("<") + 1:-1]
+			body = body.split();
+			if not body:
+				database.add_user(sender, sender, dbase)
+			else:
+				database.add_user(body[0], sender, dbase)
+			email_util.delete_email(num, username, password)
+		num, sender, body = email_util.receive_email_subj("quit", username, password)
+		if (num != -1):
+			print "Received new user email requesting removal!"
+			sender = sender[sender.index("<") + 1:-1]
+			body = body.split();
+			database.remove_user(sender, dbase)
+			email_util.delete_email(num, username, password)
+
