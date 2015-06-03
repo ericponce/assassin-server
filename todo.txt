@@ -1,3 +1,5 @@
 Server Todo:
 	NLP
-	
+	Improved Database handling
+	Error Management
+	Admnistrater Interface
